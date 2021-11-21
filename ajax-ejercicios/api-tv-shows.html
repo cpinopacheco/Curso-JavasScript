@@ -1,0 +1,90 @@
+<!DOCTYPE html>
+<html lang="es">
+
+<head>
+  <meta charset="UTF-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Buscador Shows de TV</title>
+  <style>
+    .grid-fluid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+    }
+
+    .loader {
+      display: block;
+      margin: auto;
+    }
+  </style>
+</head>
+
+<body>
+  <h1>Buscador Shows de TV</h1>
+  <input type="search" id="search" placeholder="Buscar shows de tv..." autocomplete="off">
+  <section id="shows" class="grid-fluid"></section>
+  <template id="show-template">
+    <article class="show">
+      <h3></h3>
+      <div></div>
+      <img>
+      <a></a>
+
+    </article>
+  </template>
+
+  <script>
+    const d = document,
+      $shows = d.getElementById("shows"),
+      $template = d.getElementById("show-template").content,
+      $fragment = d.createDocumentFragment();
+
+    d.addEventListener("keypress", async e => {
+      if (e.target.matches("#search")) {
+        if (e.key === "Enter") {
+          try {
+            $shows.innerHTML = `<img class=loader src="../assets/ball-triangle.svg" alt="Cargando...">`;
+
+            let query = e.target.value.toLowerCase(),
+              api = `http://api.tvmaze.com/search/shows?q=${query}`,
+              res = await fetch(api),
+              json = await res.json();
+
+            console.log(api, res, json);
+
+            if (!res.ok) throw { status: res.status, statusText: res.statusText } //Cnotrolamos el error y throw dirige el flujo al catch}
+
+            if (json.length === 0) {
+              $shows.innerHTML = `<h2>No Existen resultados de shows para la categoría de búsqueda: <mark>${query}</mark></h2>`;
+            } else {
+              json.forEach(el => {
+                let $clone = $template.cloneNode(true);
+
+                $clone.querySelector("h3").textContent = el.show.name;
+                $clone.querySelector("div").innerHTML = el.show.summary || "Sin descripción";
+                $clone.querySelector("img").src = el.show.image ? el.show.image.medium : "http://static.tvmaze.com/images/no-img/no-img-portrait-text.png";
+                $clone.querySelector("img").alt = el.show.name;
+                $clone.querySelector("img").style.maxWidth = "100%";
+                $clone.querySelector("a").href = el.show.url ? el.show.url : "#";
+                $clone.querySelector("a").target = el.show.url ? "_blank" : "_self";
+                $clone.querySelector("a").textContent = el.show.url ? "Ver mas..." : "";
+
+                $fragment.appendChild($clone);
+              });
+
+              $shows.innerHTML = ""; //hace desaparecer el loader al limpiar el elemento 
+
+              $shows.appendChild($fragment);
+            }
+          } catch (error) {
+            console.log(error);
+            let message = error.statusText || "Ocurrió un error";
+            $shows.innerHTML = `<p>Error ${error.status}: ${message}</p>`;
+          }
+        }
+      }
+    })
+  </script>
+</body>
+
+</html>

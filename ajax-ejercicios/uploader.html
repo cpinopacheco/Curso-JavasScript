@@ -1,0 +1,120 @@
+<!DOCTYPE html>
+<html lang="es">
+
+<head>
+  <meta charset="UTF-8" />
+  <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Uploader con AJAX</title>
+  <style>
+    html {
+      box-sizing: border-box;
+      font-family: sans-serif;
+      font-size: 16px;
+    }
+
+    *,
+    *:before,
+    *:after {
+      box-sizing: inherit;
+    }
+
+    main {
+      display: flex;
+      flex-direction: column;
+      justify-content: center;
+      align-items: center;
+      min-height: 100vh;
+    }
+
+    progress {
+      margin-top: 1rem;
+    }
+  </style>
+</head>
+
+<body>
+  <main>
+    <!-- el atributo multiple especifica que se puede subir mas de un archivo -->
+    <input type="file" name="files" id="files" multiple />
+    <!-- etiqueta para generar la barra de progreso -->
+    <!-- <progress value="70" max="100"></progress> -->
+  </main>
+  <script>
+    const d = document,
+      $main = d.querySelector("main"),
+      $files = d.getElementById("files");
+
+    const uploader = (file) => {
+      //console.log(file);
+      const xhr = new XMLHttpRequest(),
+        formData = new FormData();
+
+      formData.append("file", file);
+
+      xhr.addEventListener("readystatechange", (e) => {
+        if (xhr.readyState !== 4) return;
+
+        if (xhr.status >= 200 && xhr.status < 300) {
+          let json = JSON.parse(xhr.responseText);
+          console.log(json);
+          console.log(xhr.responseText);
+        } else {
+          let message = xhr.statusText || "Ocurrió un error";
+          console.error(`Error ${xhr.status}: ${message}`);
+        }
+      });
+
+      xhr.open("POST", "assets/uploader.php");
+
+      xhr.setRequestHeader("enc-type", "multipart/form-data");
+
+      xhr.send(formData);
+    };
+
+    const progressUpload = (file) => {
+      const $progress = d.createElement("progress"),
+        $span = d.createElement("span");
+
+      $progress.value = 0;
+      $progress.max = 100;
+
+      $main.insertAdjacentElement("beforeend", $progress);
+      $main.insertAdjacentElement("beforeend", $span);
+
+      const fileReader = new FileReader(); //file rider permite hacer el carculo de los bits que estan cargados.
+
+      fileReader.readAsDataURL(file);
+
+      //se ejectuta mientras esta cargando el archivo
+      fileReader.addEventListener("progress", e => {
+        //console.log(e);
+        //se aplica una regla de 3 para sacar el porcentaje cargado del archivo.
+        let progress = parseInt((e.loaded * 100) / e.total);
+        $progress.value = progress;
+        $span.innerHTML = `<b>${file.name} - ${progress}%</b>`;
+      });
+
+      //se ejecuta cuando termina de cargar el archivo, lo sube al servidor y limpia la interfaz quitando elementos. 
+      fileReader.addEventListener("loadend", e => {
+        uploader(file);
+        setTimeout(() => {
+          $main.removeChild($progress); //remueve el hijo
+          $main.removeChild($span); //remueve el hijo
+          $files.value = "";
+        }, 3000);
+      });
+    }
+
+    d.addEventListener("change", (e) => {
+      if (e.target === $files) {
+        //console.log(e.target.files);
+
+        const files = Array.from(e.target.files); //Array.from le da la capacidadpara utilizar métodos que son espelcialmente de los arreglos
+        files.forEach((el) => progressUpload(el));
+      }
+    });
+  </script>
+</body>
+
+</html>

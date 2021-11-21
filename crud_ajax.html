@@ -1,0 +1,181 @@
+<!DOCTYPE html>
+<html lang="es">
+
+<head>
+  <meta charset="UTF-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>CRUD API REST AJAX</title>
+</head>
+
+<body>
+  <h1>CRUD API REST AJAX</h1>
+  <section class="crud">
+    <article>
+      <h2 class="crud-title">Agregar Santo</h2>
+      <form class="crud-form">
+        <input type="text" name="nombre" placeholder="nombre" required>
+        <br><br>
+        <input type="text" name="constelacion" placeholder="constelación" required>
+        <br><br>
+        <input type="submit" value="Enviar">
+        <input type="hidden" name="id">
+      </form>
+    </article>
+    <article>
+      <h2>Ver Santos</h2>
+      <table class="crud-table">
+        <thead>
+          <tr>
+            <th>Nombre</th>
+            <th>Constelación</th>
+            <th>Acciones</th>
+          </tr>
+        </thead>
+        <tbody>
+
+        </tbody>
+      </table>
+    </article>
+  </section>
+  <template id="crud-template">
+    <tr>
+      <td class="name"></td>
+      <td class="constellation"></td>
+      <td>
+        <button class="edit">Editar</button>
+        <button class="delete">Eliminar</button>
+      </td>
+    </tr>
+  </template>
+  <script>
+    const d = document,
+      $table = d.querySelector(".crud-table"),
+      $form = d.querySelector(".crud-form"),
+      $title = d.querySelector(".crud-title"),
+      $template = d.getElementById("crud-template").content,
+      $fragment = d.createDocumentFragment();
+
+    // se crea una función ajax que nos sirve para cualquier petición (GET - POST - PUT - DELETE)
+    const ajax = (options) => {
+      let { url, method, success, error, data } = options;
+      const xhr = new XMLHttpRequest();
+
+      xhr.addEventListener("readystatechange", e => {
+        if (xhr.readyState !== 4) return;
+
+        if (xhr.status >= 200 && xhr.status < 300) {
+          let json = JSON.parse(xhr.responseText);
+          success(json);
+        } else {
+          let message = xhr.statusText || "Ocurrió un error";
+          error(`Error ${xhr.status}: ${message}`);
+        }
+      })
+
+      xhr.open(method || "GET", url);
+      xhr.setRequestHeader("Content-type", "application/json; charset=utf-8");
+      xhr.send(JSON.stringify(data));
+    }
+
+    //READ - GET
+    const getAll = () => {
+      ajax({
+        method: "GET",
+        url: "http://localhost:3000/santos",
+        success: (res) => {
+          console.log(res);
+          res.forEach(el => {
+            console.log(el)
+            $template.querySelector(".name").textContent = el.nombre;
+            $template.querySelector(".constellation").textContent = el.constelacion;
+
+            $template.querySelector(".edit").dataset.id = el.id; //Crea un dataAtributte (id) al elemento.
+            $template.querySelector(".edit").dataset.name = el.nombre;
+            $template.querySelector(".edit").dataset.constellation = el.constelacion;
+            $template.querySelector(".delete").dataset.id = el.id;
+            $template.querySelector(".delete").dataset.name = el.nombre;
+
+            let $clone = d.importNode($template, true);
+            $fragment.appendChild($clone);
+          });
+
+          /* 
+          dentro de la tabla busca la etiqueta tbody y le agredó como hijo el fragmento.
+          */
+          $table.querySelector("tbody").appendChild($fragment);
+        },
+        error: (err) => {
+          console.error(err);
+          $table.insertAdjacentHTML("afterend", `<p><b>${err}</b></p>`);
+          /*
+          'beforebegin': Antes del elementoObjetivo.
+          'afterbegin': Dentro del elementoObjetivo, antes de su primer hijo.
+          'beforeend': Dentro del elementoObjetivo, después de su último hijo.
+          'afterend': Después del elementoObjetivo. 
+           */
+        },
+        data: null
+      })
+    }
+
+    d.addEventListener("DOMContentLoaded", getAll);
+
+    d.addEventListener("submit", e => {
+      //si el evento lo originó el elemento que esta almacenado en la variable $form
+      if (e.target === $form) {
+        //si el valor de id del elemento viene vacio, se crea un registro
+        if (!e.target.id.value) {
+          //CREATE - POST
+          ajax({
+            url: "http://localhost:3000/santos",
+            method: "POST",
+            success: (res) => location.reload(), //si la petición es exitosa recarga la página.
+            error: (err) => $form.insertAdjacentHTML("afterend", `<p><b>${err}</b></p>`), //si hay un error inserta un mensaje con el detalle del error al final del formulario.
+            data: {
+              nombre: e.target.nombre.value,
+              constelacion: e.target.constelacion.value
+            }
+          })
+        } else {
+          //UPDATE - PUT
+          ajax({
+            url: `http://localhost:3000/santos/${e.target.id.value}`, //el id hace referencia al atributo name del input
+            method: "PUT",
+            success: (res) => location.reload(),
+            error: (err) => $form.insertAdjacentHTML("afterend", `<p><b>${err}</b></p>`)
+          })
+        }
+      }
+
+    })
+
+    d.addEventListener("click", e => {
+      //Al hacer click en el bóton editar se llenan los input con el valor
+      if (e.target.matches(".edit")) {
+        $title.textContent = "Editar Santo";
+        console.log(e.target.dataset.name);
+        $form.nombre.value = e.target.dataset.name;
+        $form.constelacion.value = e.target.dataset.constellation;
+        $form.id.value = e.target.dataset.id;
+      }
+
+      //DELETE - DELETE
+      if (e.target.matches(".delete")) {
+        let isDelete = confirm(`¿Estás seguro de eliminar a ${e.target.dataset.name} de la tabla?`); //el confirm es un mensaje con la opcion para aceptar y cancelar. Si se acepta el valor es true, si se cancela es false.
+
+        if (isDelete) {
+          ajax({
+            url: `http://localhost:3000/santos/${e.target.dataset.id}`,
+            method: "DELETE",
+            success: (res) => location.reload(),
+            error: (err) => $form.insertAdjacentHTML("afterend", `<p><b>${err}</b></p>`)
+          })
+        }
+      }
+    })
+
+  </script>
+</body>
+
+</html>

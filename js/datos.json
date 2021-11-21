@@ -1,0 +1,12 @@
+{
+    "cadena": "Cristian",
+    "numero": 33,
+    "booleano": true,
+    "arreglo": ["Correr", "Programar", "Cocinar"],
+    "objeto": {
+      "twitter": "@cristian",
+      "email": "cpinopacheco64@gmail.com"
+    },
+    "nulo": null
+}
+

@@ -1,0 +1,76 @@
+<!DOCTYPE html>
+<html lang="es">
+
+<head>
+  <meta charset="UTF-8" />
+  <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Checkout con Stripe</title>
+  <style>
+    /* 
+    Importante resetear el modelo de caja del navegador que viene por defecto.
+    */
+    html {
+      box-sizing: border-box;
+      font-family: sans-serif;
+      font-size: 16px;
+    }
+
+    *,
+    *:before,
+    *:after {
+      box-sizing: inherit;
+    }
+
+    .tacos {
+      display: flex;
+      flex-wrap: wrap;
+    }
+
+    /* todos los elementos hijos directos del elemento con la clase tacos */
+    .tacos>* {
+      flex: 1 1 200px;
+      margin: 1rem;
+    }
+
+    .taco {
+      background-color: crimson;
+      color: chartreuse;
+      font-size: 125%;
+      text-align: center;
+      cursor: pointer;
+      transition: all 0.3s ease-out;
+    }
+
+    .taco:hover {
+      opacity: .8;
+      transform: scale(1.05);
+    }
+
+    /* para que la imagen no se desborde */
+    .taco img {
+      max-width: 100%;
+      min-height: auto;
+    }
+
+    .taco figcaption {
+      padding: 1rem;
+    }
+  </style>
+</head>
+
+<body>
+  <h1>Checkout con Stripe</h1>
+  <section id="tacos" class="tacos"></section>
+  <template id="taco-template">
+    <figure class="taco">
+      <img>
+      <figcaption></figcaption>
+    </figure>
+  </template>
+  <script src="https://js.stripe.com/v3/"></script>
+  <script src="../ajax-ejercicios/assets/stripe-checkout.js" type="module">
+  </script>
+</body>
+
+</html>
