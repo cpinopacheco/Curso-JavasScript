@@ -1,16 +1,6 @@
-/*  console.log(window);
-console.log(document);
-
-//Api para hablar con el navegador
-texto = "Nombre, descripción y ataque del poquemon";
-const hablar = (texto) =>
-speechSynthesis.speak(new SpeechSynthesisUtterance(texto));
-
-hablar(texto); */
-
 //>>>>>>>>>>>>>>>>   DOM: introducción
-
-/* console.log("***********Elementos del Documento****************");
+/* 
+console.log("***********Elementos del Documento****************");
 console.log(document);
 console.log(document.head);
 console.log(document.body);
@@ -22,11 +12,12 @@ console.log(document.links);
 console.log(document.images);
 console.log(document.forms);
 console.log(document.styleSheets); 
-console.log(document.scripts);  */
+console.log(document.scripts);  
+*/
 
 //>>>>>>>>>>>>>>>>>>>>>>> DOM: Nodos, Elementos y Selectores
-
-/* console.log(document.getElementsByTagName("li"));
+/* 
+console.log(document.getElementsByTagName("li"));
 console.log(document.getElementsByClassName("card"));
 console.log(document.getElementsByName("nombre"));
 console.log(document.getElementById("menu"));
@@ -46,10 +37,9 @@ console.log(document.querySelectorAll(".card"));
 console.log(document.querySelectorAll(".card")[2]);
 console.log(document.querySelector("#menu li"));
 console.log(document.querySelectorAll("#menu li"));
- */
+*/
 
 //>>>>>>>>>>>>>>> DOM: Atributos y Data-Attributes
-
 /* 
 - getAttribute permite obtener un atributo del elemento
 
@@ -62,7 +52,8 @@ console.log(document.querySelectorAll("#menu li"));
 - Los dataset son attributos que agregamos de manera independiente a un elemento
 */
 
-/* console.log(document.documentElement.lang);
+/* 
+console.log(document.documentElement.lang);
 console.log(document.documentElement.getAttribute("lang"));
 
 console.log(document.querySelector(".link-dom").href);
@@ -91,10 +82,12 @@ console.log(linkDom.dataset.description);
 linkDom.dataset.description = "Suscribete";
 console.log(linkDom.dataset);
 console.log(linkDom.dataset.description);
-console.log(linkDom.getAttribute("data-description")); */
+console.log(linkDom.getAttribute("data-description")); 
+*/
 
 //>>>>>>>>>>>>>< DOM: Estilos y Variables CSS
-/* const linkDom = document.querySelector(".link-dom");
+/* 
+const linkDom = document.querySelector(".link-dom");
 console.log(linkDom.style);
 console.log(linkDom.getAttribute("style"));
 console.log(linkDom.style.backgroundColor);
@@ -126,32 +119,30 @@ body.style.color = varClearColor;
 html.style.setProperty("--dark-color", "pink");
 varDarkColor = getComputedStyle(html).getPropertyValue("--dark-color");
 
-body.style.setProperty("background-color", varDarkColor); */
+body.style.setProperty("background-color", varDarkColor); 
+*/
 
 /* >>>>>>>>>>>>>>>>  DOM: Clases CSS*/
 //como buena practica el nombre de la variable se escribe con dolar al inicio para saber que se esta haciendo referencia a un elemento del DOM.
 
-/* const $card = document.querySelector(".card");
+/* 
+const $card = document.querySelector(".card");
 
 console.log($card.classList); //devuelve un DOMTokenList
 console.log($card.className); //devuelve la cadena de texto que tiene el atributo card
 console.log($card.classList.contains("rotate-45")); //devuelve true o false si el elemento contiene la clase "rotate-45"
 $card.classList.add("rotate-45"); // metodo que agrega una clase a un elemento html
-console.log($card.classList.contains("rotate-45")); //verifica que contiene la clase
 $card.classList.remove("rotate-45"); // metodo que quita una clase a un elemento html
 $card.classList.toggle("rotate-45"); // metodo que agrega la clase si el elemento no la tiene, o la quita si la tiene.
-console.log($card.classList.contains("rotate-45")); //verifica que contiene la clase
-$card.classList.toggle("rotate-45");
-console.log($card.classList.contains("rotate-45")); //verifica que contiene la clase
-$card.classList.toggle("rotate-45");
 $card.classList.replace("rotate-45", "rotate-135"); // reemplaza la clase actual por una nueva
 $card.classList.add("opacity-80", "sepia"); //agrega mas de una clase a un elemento
-$card.classList.remove("opacity-80", "sepia"); //agrega mas de una clase a un elemento
-$card.classList.toggle("opacity-80", "sepia"); //agrega mas de una clase a un elemento */
+$card.classList.remove("opacity-80", "sepia"); //agrega mas de una clase a un elemento.
+$card.classList.toggle("opacity-80", "sepia"); //agrega mas de una clase a un elemento 
+*/
 
 // >>>>>>>>>>>>>>>>>>>>>> DOM: Texto y HTML
-
-/* const $whatsIsDOM = document.getElementById("que-es");
+/* 
+const $whatsIsDOM = document.getElementById("que-es");
 
 let text = `
 <p>
@@ -170,11 +161,12 @@ let text = `
 $whatsIsDOM.innerText = text; //respeta las identaciones de las templateString
 $whatsIsDOM.textContent = text; //se utiliza para insertar solo texto
 $whatsIsDOM.innerHTML = text; // se utiliza para insertar código HTML, respeta las etiquetas del parrafo.
-$whatsIsDOM.outerHTML = text; //reemplaza el código HTML */
+$whatsIsDOM.outerHTML = text; //reemplaza el código HTML 
+*/
 
 /* >>>>>>>>>>>>>>>>>> DOM traversing: Recorriendo el DOM  */
-
-/* const $cards = document.querySelector(".cards");
+/* 
+const $cards = document.querySelector(".cards");
 
 console.log($cards);
 console.log($cards.children); //retorna los elementos hijos del elemento.
@@ -186,11 +178,13 @@ console.log($cards.firstElementChild); //retorna el primer elemento hijo
 console.log($cards.lastElementChild); // retorna el ultimo elemento hijo
 console.log($cards.previousElementSibling); //retorna el elemento hermano anterior al elemento
 console.log($cards.nextElementSibling); // retonrna el elemento hermano siguiente al elmento
-console.log($cards.closest()); // va a buscar el ancestro mas cercano del tipo de selector que le demos. */
+console.log($cards.closest()); // va a buscar el ancestro mas cercano del tipo de selector que le demos. 
+*/
 
 /* >>>>>>>>>>>>>>>> DOM: Creando elementos y Fragmentos */
 
-/* const $figure = document.createElement("figure"), //crea un nuevo elemento figure
+/* 
+const $figure = document.createElement("figure"), //crea un nuevo elemento figure
   $img = document.createElement("img"),
   $figcaption = document.createElement("figcaption"),
   $figcaptiontext = document.createTextNode("Animals"),
@@ -264,14 +258,16 @@ meses.forEach((el) => {
 
 document.write("<h3>Meses del AÑo</h3>");
 $ul3.appendChild($fragment);
-document.body.appendChild($ul3); */
+document.body.appendChild($ul3); 
+*/
 
 //>>>>>>>>>>>>>>>>>>>>>>> DOM: Templates HTML
 /* 
 - Las etiquetas template no se renderizan en el DOM, el objetivo para que se crearon es para ser un modelo a seguir y a traves de ella empezar a generar estructuras del DOM dinamicamente.
 */
 
-/* const $cards = document.querySelector(".cards"),
+/* 
+const $cards = document.querySelector(".cards"),
   $template = document.getElementById("template-card").content,
   $fragment = document.createDocumentFragment(),
   cardContent = [
@@ -306,7 +302,8 @@ cardContent.forEach((el) => {
   $fragment.appendChild($clone);
 });
 
-$cards.appendChild($fragment); */
+$cards.appendChild($fragment); 
+*/
 
 // >>>>>>>>>>>>>>>>>>>>>> DOM: Modificando Elementos (old style)
 
@@ -328,9 +325,8 @@ $newCard.classList.add("card");
 document.body.appendChild($cloneNode); */
 
 //>>>>>>>>>>>>>>>>>>>>>>>>>> DOM: Modificando Elementos (cool style)
-
 /* 
-.insertAdjacent...
+insertAdjacent...
   .insertAdjacentElement(position,el) //agrega un elemento como un appenchild o un insertBefore.
   .insertAdjacentHTML(position,html) //agrega contenido html, vendria siendo como un innerHTMl
   .insertAdjacentText(position,text) //agrega contenido al elemento html, viene siendo como un text content
@@ -341,9 +337,10 @@ Posiciones:
   afterbegin(primer hijo) // el primer elemento hijo del nodo como referencia
   beforeend(ultimo hijo) //el ultimo hijo
   afterend(hermano siguiente) // el hermano siguiente
-*/
 
-/* const $cards = document.querySelector(".cards"),
+
+/* 
+const $cards = document.querySelector(".cards"),
   $newCard = document.createElement("figure");
 
 let $contentCard = `
@@ -353,16 +350,18 @@ let $contentCard = `
 
 $newCard.classList.add("card");
 
-// $cards.insertAdjacentElement("beforebegin", $newCard);
-// $cards.insertAdjacentElement("afterbegin", $newCard);
-// $cards.insertAdjacentElement("beforeend", $newCard);
-// $cards.insertAdjacentElement("afterend", $newCard);
+$cards.insertAdjacentElement("beforebegin", $newCard);
+$cards.insertAdjacentElement("afterbegin", $newCard);
+$cards.insertAdjacentElement("beforeend", $newCard);
+$cards.insertAdjacentElement("afterend", $newCard);
 
 $newCard.insertAdjacentHTML("beforeend", $contentCard);
 $newCard.querySelector("figcaption").insertAdjacentText("afterbegin", "Any");
-$cards.insertAdjacentElement("afterbegin", $newCard); */
+$cards.insertAdjacentElement("afterbegin", $newCard); 
+*/
 
-/* function holaMundo() {
+/* 
+function holaMundo() {
   alert("Hola mundo");
   console.log(event);
 }
@@ -384,7 +383,8 @@ $eventoMultiple.addEventListener("click", (e) => {
   console.log(e.type); // imprime el tipo de evento
   console.log(e.target); //imprime el elemento que origino el evento
   console.log(event); // imprime el evento.
-}); */
+}); 
+*/
 
 // >>>>>>>>>>>>>>>> Eventos con  Parámetros y Remover Eventos
 
@@ -396,9 +396,9 @@ $eventoMultiple.addEventListener("click", (e) => {
 const $eventoMultiple = document.getElementById("evento-multiple"),
   $eventoRemover = document.getElementById("evento-remover");
 
-// $eventoMultiple.addEventListener("click", saludar); //no imprime lo que se le pasa por parametro.
+$eventoMultiple.addEventListener("click", saludar); //no imprime lo que se le pasa por parametro.
 
-//$eventoMultiple.addEventListener("click", () => saludar()); // en una sola linea de código
+$eventoMultiple.addEventListener("click", () => saludar()); // en una sola linea de código
 
 $eventoMultiple.addEventListener("click", () => {
   saludar();
@@ -412,7 +412,8 @@ const removerDobleClick = (e) => {
   $eventoRemover.disabled = true;
 };
 
-$eventoRemover.addEventListener("dblclick", removerDobleClick); */
+$eventoRemover.addEventListener("dblclick", removerDobleClick); 
+*/
 
 //>>>>>>>>>>>>> DOM: Flujo de eventos
 /*
@@ -426,7 +427,7 @@ function flujoEventos(e) {
 
 console.log($divsEventos);
 
- $divsEventos.forEach((div) => {
+$divsEventos.forEach((div) => {
   //Fase de burbuja
   //div.addEventListener("click", flujoEventos);
   //div.addEventListener("click", flujoEventos, false);
@@ -442,7 +443,8 @@ console.log($divsEventos);
 
 //>>>>>>>>>>>> DOM: stopPropagation & preventDefault
 
-/* const $divsEventos = document.querySelectorAll(".eventos-flujo div"); // trae todos los div que estan dentro del elemento con la clase eventos-flujo.
+/* 
+const $divsEventos = document.querySelectorAll(".eventos-flujo div"); // trae todos los div que estan dentro del elemento con la clase eventos-flujo.
 const $linkEventos = document.querySelector(".eventos-flujo a");
 
 console.log($linkEventos);
@@ -462,11 +464,12 @@ $linkEventos.addEventListener("click", (e) => {
   alert("Hola mi nombre es Cristian");
   e.preventDefault(); //cancela la accion que tiene por defecto el elemento.
   e.stopPropagation(); //cancela la propagación del evento.
-}); */
+}); 
+*/
 
 //>>>>>>>>>>>>>>>>>>> DOM: Delegación de eventos
-
-/* function flujoEventos(e) {
+/* 
+function flujoEventos(e) {
   console.log(
     `Hola te saluda ${this.className}, el click lo originó ${e.target.className}`
   );
@@ -537,7 +540,8 @@ document.addEventListener("DOMContentLoaded", (e) => {
 
 //window.prompt("Aviso"); //ventana que permite ingresar un texto
 
-/* const $botonAbrir = document.getElementById("abrir-ventana");
+/* 
+const $botonAbrir = document.getElementById("abrir-ventana");
 const $botonCerrar = document.getElementById("cerrar-ventana");
 const $botonImprimir = document.getElementById("imprimir-ventana");
 
@@ -553,7 +557,8 @@ $botonCerrar.addEventListener("click", (e) => {
 
 $botonImprimir.addEventListener("click", (e) => {
   window.print();
-}); */
+}); 
+*/
 
 //>>>>>>>>>>>>>>>> BOM: Objetos: URL, Historial y Navegador.
 //Objeto location y algunas propiedades importantes.
@@ -570,18 +575,21 @@ console.log(location.href); //es la dirección del sitio web (toda la url)
 console.log(location.hash); //detecta el valor de la url que esta despues de un hash
 console.log(location.pathname); //es el archivo al que se esta consultando
 console.log(location.search) //detecta valores como parametros en la url
-//location.reload(); //recarga la página. 
+location.reload(); //recarga la página. 
 */
 
-/* console.log("********** objeto Historial (history) ***********");
+/* 
+console.log("********** objeto Historial (history) ***********");
 console.log(history);
 console.log(history.length); //imprime la cantidad de paginas que hemos visitado.
 
-//history.forward(1) avanza en el historial
-//history.back(2) regresa las paginas en el historial
-//history.go(-3) se mueve hacia adelante o hacia atras en el historial según el valor que pasamos. numeros negativos hacia atras y números positivos hacia adelante. */
+history.forward(1) avanza en el historial
+history.back(2) regresa las paginas en el historial
+history.go(-3) se mueve hacia adelante o hacia atras en el historial según el valor que pasamos. numeros negativos hacia atras y números positivos hacia adelante. 
+*/
 
-/* console.log("********** objeto Navigator (navigator) ***********");
+/* 
+console.log("********** objeto Navigator (navigator) ***********");
 console.log(navigator);
 console.log(navigator.connection); //información de conexion del usuario
 console.log(navigator.geolocation); //api de geolocalización
@@ -591,8 +599,16 @@ console.log(navigator.onLine); //evento cuando el usuario tiene o no conexion.
 console.log(navigator.serviceWorker); //convertir el sitio web en una aplicación instalable (convertilo en una PWA = progresive web app)
 console.log(navigator.storage); //el api de almacenamiento.
 console.log(navigator.usb); //detecta dispositivos USB
-console.log(navigator.userAgent); //nos da información sobre el navegador, el sistema operativo y si es escritorio o movil el dispositvo que se esta conectando al sitio web. */
+console.log(navigator.userAgent); //nos da información sobre el navegador, el sistema operativo y si es escritorio o movil el dispositvo que se esta conectando al sitio web. 
+*/
 
-//>>>>>>>>>>>>>>>>> DOM: Ejercicios Prácticos
+/*  console.log(window);
+console.log(document);
 
-// 1- Menú de Hamburguesa.
+//Api para hablar con el navegador
+texto = "Nombre, descripción y ataque del poquemon";
+const hablar = (texto) =>
+speechSynthesis.speak(new SpeechSynthesisUtterance(texto));
+
+hablar(texto); 
+*/
