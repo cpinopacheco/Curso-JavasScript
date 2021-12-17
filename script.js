@@ -948,13 +948,17 @@ dentro de una variable o arreglo.
 // console.log(Math.ceil(7.2)); //redondea hacia el numero al mayor, sin importar el numero decimal
 // console.log(Math.floor(7.8)); // redondea hacia el numero al menor, sin importar el numero decimal
 // console.log(Math.round(7.2)); // redondea hacia abajo o arriba dependiendo el numero decimal
-// console.log(Math.round(7.6)); // redondea hacia abajo o arriba dependiendo el numero decimal
+// console.log(Math(7.6)); // redondea hacia abajo o arriba dependiendo el numero decimal
 // console.log(Math.sqrt(81)); // raiz cuadrada de un numero
 // console.log(Math.pow(2,5)); //potencia - eleva el el primer valor las veces del segundo valor. Esto es dos a la quinta
 // console.log(Math.sign(-7,8)); //Devuelve -1 si el numero es negativo y 1 si el numero es positivo. Es una referencia si el numero es negativo o positivo.
 // console.log(Math.random()); // valor aleatorio comprendido entre 0 y 1.
 // console.log(Math.random()*100); // devuelve un numero aleatorio entre 0 y 100 con decimales
 // console.log(Math.round(Math.random()*100)); // devuelve un numero aleatorio entre 0 y 100 sin numero decimales
+/* setInterval(() => {
+  const numeroRandom = Math.ceil(Math.random() * 100);
+  console.log(numeroRandom);
+}, 1000); */
 
 //>>>>>>>>>>>>>>>>>>> OPERADOR DE CORTOCIRCUITO
 /*
